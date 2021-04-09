@@ -1,0 +1,760 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LibraryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="birthdate" Type="date" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdminsAuth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="authors_surnames" Type="varchar" MaxLength="100" />
+          <Property Name="publication_city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="publishing_house" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="publication_year" Type="smallint" Nullable="false" />
+          <Property Name="pages_number" Type="smallint" Nullable="false" />
+          <Property Name="cost" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="count" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstanceBook">
+          <Key>
+            <PropertyRef Name="inventory_number" />
+          </Key>
+          <Property Name="inventory_number" Type="int" Nullable="false" />
+          <Property Name="id_book" Type="int" Nullable="false" />
+          <Property Name="placement" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Librarians">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="birthdate" Type="date" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LibrarinsAuth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Liners">
+          <Key>
+            <PropertyRef Name="id_instance" />
+          </Key>
+          <Property Name="id_instance" Type="int" Nullable="false" />
+          <Property Name="id_reader" Type="int" Nullable="false" />
+          <Property Name="issue_date" Type="date" Nullable="false" />
+          <Property Name="return_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReaderCards">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="residence_city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="residence_street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="residence_house" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="birthdate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReadersAuth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="WriteOffs">
+          <Key>
+            <PropertyRef Name="id_book" />
+          </Key>
+          <Property Name="id_book" Type="int" Nullable="false" />
+          <Property Name="write_off_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Сataloging">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_region" Type="int" Nullable="false" />
+          <Property Name="id_book" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AdminsAuth_Admins">
+          <End Role="Admins" Type="Self.Admins" Multiplicity="1" />
+          <End Role="AdminsAuth" Type="Self.AdminsAuth" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Admins">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdminsAuth">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstanceBook_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="InstanceBook" Type="Self.InstanceBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InstanceBook">
+              <PropertyRef Name="id_book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LibrarinsAuth_Librarians">
+          <End Role="Librarians" Type="Self.Librarians" Multiplicity="1" />
+          <End Role="LibrarinsAuth" Type="Self.LibrarinsAuth" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Librarians">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LibrarinsAuth">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liners_InstanceBook">
+          <End Role="InstanceBook" Type="Self.InstanceBook" Multiplicity="1" />
+          <End Role="Liners" Type="Self.Liners" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="InstanceBook">
+              <PropertyRef Name="inventory_number" />
+            </Principal>
+            <Dependent Role="Liners">
+              <PropertyRef Name="id_instance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liners_ReaderCards">
+          <End Role="ReaderCards" Type="Self.ReaderCards" Multiplicity="1" />
+          <End Role="Liners" Type="Self.Liners" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReaderCards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Liners">
+              <PropertyRef Name="id_reader" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReadersAuth_ReaderCards">
+          <End Role="ReaderCards" Type="Self.ReaderCards" Multiplicity="1" />
+          <End Role="ReadersAuth" Type="Self.ReadersAuth" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ReaderCards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ReadersAuth">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WriteOffs_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="WriteOffs" Type="Self.WriteOffs" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="WriteOffs">
+              <PropertyRef Name="id_book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сataloging_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="Сataloging" Type="Self.Сataloging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Сataloging">
+              <PropertyRef Name="id_book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сataloging_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="Сataloging" Type="Self.Сataloging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Сataloging">
+              <PropertyRef Name="id_region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LibraryModelContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminsAuth" EntityType="Self.AdminsAuth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstanceBook" EntityType="Self.InstanceBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Librarians" EntityType="Self.Librarians" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LibrarinsAuth" EntityType="Self.LibrarinsAuth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Liners" EntityType="Self.Liners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReaderCards" EntityType="Self.ReaderCards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReadersAuth" EntityType="Self.ReadersAuth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WriteOffs" EntityType="Self.WriteOffs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Сataloging" EntityType="Self.Сataloging" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AdminsAuth_Admins" Association="Self.FK_AdminsAuth_Admins">
+            <End Role="Admins" EntitySet="Admins" />
+            <End Role="AdminsAuth" EntitySet="AdminsAuth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstanceBook_Books" Association="Self.FK_InstanceBook_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="InstanceBook" EntitySet="InstanceBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LibrarinsAuth_Librarians" Association="Self.FK_LibrarinsAuth_Librarians">
+            <End Role="Librarians" EntitySet="Librarians" />
+            <End Role="LibrarinsAuth" EntitySet="LibrarinsAuth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liners_InstanceBook" Association="Self.FK_Liners_InstanceBook">
+            <End Role="InstanceBook" EntitySet="InstanceBook" />
+            <End Role="Liners" EntitySet="Liners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liners_ReaderCards" Association="Self.FK_Liners_ReaderCards">
+            <End Role="ReaderCards" EntitySet="ReaderCards" />
+            <End Role="Liners" EntitySet="Liners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReadersAuth_ReaderCards" Association="Self.FK_ReadersAuth_ReaderCards">
+            <End Role="ReaderCards" EntitySet="ReaderCards" />
+            <End Role="ReadersAuth" EntitySet="ReadersAuth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WriteOffs_Books" Association="Self.FK_WriteOffs_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="WriteOffs" EntitySet="WriteOffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сataloging_Books" Association="Self.FK_Сataloging_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Сataloging" EntitySet="Сataloging" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сataloging_Regions" Association="Self.FK_Сataloging_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Сataloging" EntitySet="Сataloging" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AdminsAuth" Relationship="Self.FK_AdminsAuth_Admins" FromRole="Admins" ToRole="AdminsAuth" />
+        </EntityType>
+        <EntityType Name="AdminsAuth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK_AdminsAuth_Admins" FromRole="AdminsAuth" ToRole="Admins" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="authors_surnames" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="publication_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="publishing_house" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="publication_year" Type="Int16" Nullable="false" />
+          <Property Name="pages_number" Type="Int16" Nullable="false" />
+          <Property Name="cost" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="count" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="InstanceBook" Relationship="Self.FK_InstanceBook_Books" FromRole="Books" ToRole="InstanceBook" />
+          <NavigationProperty Name="WriteOffs" Relationship="Self.FK_WriteOffs_Books" FromRole="Books" ToRole="WriteOffs" />
+          <NavigationProperty Name="Сataloging" Relationship="Self.FK_Сataloging_Books" FromRole="Books" ToRole="Сataloging" />
+        </EntityType>
+        <EntityType Name="InstanceBook">
+          <Key>
+            <PropertyRef Name="inventory_number" />
+          </Key>
+          <Property Name="inventory_number" Type="Int32" Nullable="false" />
+          <Property Name="id_book" Type="Int32" Nullable="false" />
+          <Property Name="placement" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_InstanceBook_Books" FromRole="InstanceBook" ToRole="Books" />
+          <NavigationProperty Name="Liners" Relationship="Self.FK_Liners_InstanceBook" FromRole="InstanceBook" ToRole="Liners" />
+        </EntityType>
+        <EntityType Name="Librarians">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="LibrarinsAuth" Relationship="Self.FK_LibrarinsAuth_Librarians" FromRole="Librarians" ToRole="LibrarinsAuth" />
+        </EntityType>
+        <EntityType Name="LibrarinsAuth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Librarians" Relationship="Self.FK_LibrarinsAuth_Librarians" FromRole="LibrarinsAuth" ToRole="Librarians" />
+        </EntityType>
+        <EntityType Name="Liners">
+          <Key>
+            <PropertyRef Name="id_instance" />
+          </Key>
+          <Property Name="id_instance" Type="Int32" Nullable="false" />
+          <Property Name="id_reader" Type="Int32" Nullable="false" />
+          <Property Name="issue_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="return_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="InstanceBook" Relationship="Self.FK_Liners_InstanceBook" FromRole="Liners" ToRole="InstanceBook" />
+          <NavigationProperty Name="ReaderCards" Relationship="Self.FK_Liners_ReaderCards" FromRole="Liners" ToRole="ReaderCards" />
+        </EntityType>
+        <EntityType Name="ReaderCards">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="residence_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="residence_street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="residence_house" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Liners" Relationship="Self.FK_Liners_ReaderCards" FromRole="ReaderCards" ToRole="Liners" />
+          <NavigationProperty Name="ReadersAuth" Relationship="Self.FK_ReadersAuth_ReaderCards" FromRole="ReaderCards" ToRole="ReadersAuth" />
+        </EntityType>
+        <EntityType Name="ReadersAuth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ReaderCards" Relationship="Self.FK_ReadersAuth_ReaderCards" FromRole="ReadersAuth" ToRole="ReaderCards" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Сataloging" Relationship="Self.FK_Сataloging_Regions" FromRole="Regions" ToRole="Сataloging" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="WriteOffs">
+          <Key>
+            <PropertyRef Name="id_book" />
+          </Key>
+          <Property Name="id_book" Type="Int32" Nullable="false" />
+          <Property Name="write_off_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_WriteOffs_Books" FromRole="WriteOffs" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Сataloging">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_region" Type="Int32" Nullable="false" />
+          <Property Name="id_book" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Сataloging_Books" FromRole="Сataloging" ToRole="Books" />
+          <NavigationProperty Name="Regions" Relationship="Self.FK_Сataloging_Regions" FromRole="Сataloging" ToRole="Regions" />
+        </EntityType>
+        <Association Name="FK_AdminsAuth_Admins">
+          <End Role="Admins" Type="Self.Admins" Multiplicity="1" />
+          <End Role="AdminsAuth" Type="Self.AdminsAuth" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Admins">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdminsAuth">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstanceBook_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="InstanceBook" Type="Self.InstanceBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InstanceBook">
+              <PropertyRef Name="id_book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WriteOffs_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="WriteOffs" Type="Self.WriteOffs" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="WriteOffs">
+              <PropertyRef Name="id_book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сataloging_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="Сataloging" Type="Self.Сataloging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Сataloging">
+              <PropertyRef Name="id_book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liners_InstanceBook">
+          <End Role="InstanceBook" Type="Self.InstanceBook" Multiplicity="1" />
+          <End Role="Liners" Type="Self.Liners" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="InstanceBook">
+              <PropertyRef Name="inventory_number" />
+            </Principal>
+            <Dependent Role="Liners">
+              <PropertyRef Name="id_instance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LibrarinsAuth_Librarians">
+          <End Role="Librarians" Type="Self.Librarians" Multiplicity="1" />
+          <End Role="LibrarinsAuth" Type="Self.LibrarinsAuth" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Librarians">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LibrarinsAuth">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liners_ReaderCards">
+          <End Role="ReaderCards" Type="Self.ReaderCards" Multiplicity="1" />
+          <End Role="Liners" Type="Self.Liners" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReaderCards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Liners">
+              <PropertyRef Name="id_reader" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReadersAuth_ReaderCards">
+          <End Role="ReaderCards" Type="Self.ReaderCards" Multiplicity="1" />
+          <End Role="ReadersAuth" Type="Self.ReadersAuth" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ReaderCards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ReadersAuth">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сataloging_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="Сataloging" Type="Self.Сataloging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Сataloging">
+              <PropertyRef Name="id_region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admins" />
+          <EntitySet Name="AdminsAuth" EntityType="Self.AdminsAuth" />
+          <EntitySet Name="Books" EntityType="Self.Books" />
+          <EntitySet Name="InstanceBook" EntityType="Self.InstanceBook" />
+          <EntitySet Name="Librarians" EntityType="Self.Librarians" />
+          <EntitySet Name="LibrarinsAuth" EntityType="Self.LibrarinsAuth" />
+          <EntitySet Name="Liners" EntityType="Self.Liners" />
+          <EntitySet Name="ReaderCards" EntityType="Self.ReaderCards" />
+          <EntitySet Name="ReadersAuth" EntityType="Self.ReadersAuth" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="WriteOffs" EntityType="Self.WriteOffs" />
+          <EntitySet Name="Сataloging" EntityType="Self.Сataloging" />
+          <AssociationSet Name="FK_AdminsAuth_Admins" Association="Self.FK_AdminsAuth_Admins">
+            <End Role="Admins" EntitySet="Admins" />
+            <End Role="AdminsAuth" EntitySet="AdminsAuth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstanceBook_Books" Association="Self.FK_InstanceBook_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="InstanceBook" EntitySet="InstanceBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WriteOffs_Books" Association="Self.FK_WriteOffs_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="WriteOffs" EntitySet="WriteOffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сataloging_Books" Association="Self.FK_Сataloging_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Сataloging" EntitySet="Сataloging" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liners_InstanceBook" Association="Self.FK_Liners_InstanceBook">
+            <End Role="InstanceBook" EntitySet="InstanceBook" />
+            <End Role="Liners" EntitySet="Liners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LibrarinsAuth_Librarians" Association="Self.FK_LibrarinsAuth_Librarians">
+            <End Role="Librarians" EntitySet="Librarians" />
+            <End Role="LibrarinsAuth" EntitySet="LibrarinsAuth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liners_ReaderCards" Association="Self.FK_Liners_ReaderCards">
+            <End Role="ReaderCards" EntitySet="ReaderCards" />
+            <End Role="Liners" EntitySet="Liners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReadersAuth_ReaderCards" Association="Self.FK_ReadersAuth_ReaderCards">
+            <End Role="ReaderCards" EntitySet="ReaderCards" />
+            <End Role="ReadersAuth" EntitySet="ReadersAuth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сataloging_Regions" Association="Self.FK_Сataloging_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Сataloging" EntitySet="Сataloging" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LibraryModelContainer" CdmEntityContainer="LibraryEntity">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="LibraryModel.Admins">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminsAuth">
+            <EntityTypeMapping TypeName="LibraryModel.AdminsAuth">
+              <MappingFragment StoreEntitySet="AdminsAuth">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="LibraryModel.Books">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="authors_surnames" ColumnName="authors_surnames" />
+                <ScalarProperty Name="publication_city" ColumnName="publication_city" />
+                <ScalarProperty Name="publishing_house" ColumnName="publishing_house" />
+                <ScalarProperty Name="publication_year" ColumnName="publication_year" />
+                <ScalarProperty Name="pages_number" ColumnName="pages_number" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstanceBook">
+            <EntityTypeMapping TypeName="LibraryModel.InstanceBook">
+              <MappingFragment StoreEntitySet="InstanceBook">
+                <ScalarProperty Name="inventory_number" ColumnName="inventory_number" />
+                <ScalarProperty Name="id_book" ColumnName="id_book" />
+                <ScalarProperty Name="placement" ColumnName="placement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Librarians">
+            <EntityTypeMapping TypeName="LibraryModel.Librarians">
+              <MappingFragment StoreEntitySet="Librarians">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LibrarinsAuth">
+            <EntityTypeMapping TypeName="LibraryModel.LibrarinsAuth">
+              <MappingFragment StoreEntitySet="LibrarinsAuth">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Liners">
+            <EntityTypeMapping TypeName="LibraryModel.Liners">
+              <MappingFragment StoreEntitySet="Liners">
+                <ScalarProperty Name="id_instance" ColumnName="id_instance" />
+                <ScalarProperty Name="id_reader" ColumnName="id_reader" />
+                <ScalarProperty Name="issue_date" ColumnName="issue_date" />
+                <ScalarProperty Name="return_date" ColumnName="return_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReaderCards">
+            <EntityTypeMapping TypeName="LibraryModel.ReaderCards">
+              <MappingFragment StoreEntitySet="ReaderCards">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="residence_city" ColumnName="residence_city" />
+                <ScalarProperty Name="residence_street" ColumnName="residence_street" />
+                <ScalarProperty Name="residence_house" ColumnName="residence_house" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReadersAuth">
+            <EntityTypeMapping TypeName="LibraryModel.ReadersAuth">
+              <MappingFragment StoreEntitySet="ReadersAuth">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="LibraryModel.Regions">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LibraryModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WriteOffs">
+            <EntityTypeMapping TypeName="LibraryModel.WriteOffs">
+              <MappingFragment StoreEntitySet="WriteOffs">
+                <ScalarProperty Name="id_book" ColumnName="id_book" />
+                <ScalarProperty Name="write_off_date" ColumnName="write_off_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сataloging">
+            <EntityTypeMapping TypeName="LibraryModel.Сataloging">
+              <MappingFragment StoreEntitySet="Сataloging">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_region" ColumnName="id_region" />
+                <ScalarProperty Name="id_book" ColumnName="id_book" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

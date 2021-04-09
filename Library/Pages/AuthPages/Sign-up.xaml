@@ -9,6 +9,6 @@
       Title="Sign_up">
 
     <Grid>
-        
+        <Label Content="Регистрация"/>
     </Grid>
 </Page>

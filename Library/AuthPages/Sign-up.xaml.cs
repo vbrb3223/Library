@@ -12,28 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Library.Data;
 
-namespace Library.Pages
+namespace Library.AuthPages
 {
     /// <summary>
-    /// Логика взаимодействия для Auth.xaml
+    /// Логика взаимодействия для Sign_up.xaml
     /// </summary>
-    public partial class Auth : Page
+    public partial class Sign_up : Page
     {
-        LibraryEntity context = new LibraryEntity();
-        public Auth()
+        public Sign_up()
         {
             InitializeComponent();
-        }
-
-
-        /// <summary>
-        /// Авторизация
-        /// </summary>
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
-        {
-           
         }
     }
 }

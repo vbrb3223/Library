@@ -94,7 +94,7 @@
         <Label Content="Забыли пароль" Foreground="#B9B9B9" 
                        Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" FontSize="16"/>
         <Label Content="Войти" Foreground="#0096EA" 
-                       Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Grid.Column="1" Grid.Row="11" HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontSize="20"/>
     </Grid>
 </Page>

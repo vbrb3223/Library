@@ -78,7 +78,7 @@
                     <Button Template="{DynamicResource ButtonLeftSelector}"/>
                     <Button Template="{DynamicResource ButtonRightSelector}"/>
                 </StackPanel>
-                <Frame Source="/Library;component/AuthPages/Sign-in.xaml" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1"/>
+                <Frame Source="/Library;component/Pages/AuthPages/Sign-in.xaml" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1"/>
                 
             </Grid>
         </Border>

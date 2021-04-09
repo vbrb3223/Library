@@ -65,11 +65,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AuthPages\Sign-in.xaml">
+    <Page Include="Pages\AuthPages\Sign-in.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AuthPages\Sign-up.xaml">
+    <Page Include="Pages\AuthPages\Sign-up.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -81,10 +81,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AuthPages\Sign-in.xaml.cs">
+    <Compile Include="Pages\AuthPages\Sign-in.xaml.cs">
       <DependentUpon>Sign-in.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AuthPages\Sign-up.xaml.cs">
+    <Compile Include="Pages\AuthPages\Sign-up.xaml.cs">
       <DependentUpon>Sign-up.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Admins.cs">

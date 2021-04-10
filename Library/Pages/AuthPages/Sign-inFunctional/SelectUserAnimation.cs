@@ -96,33 +96,16 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
             }
         }
 
-        private static double GetCoefOfDifference(double lineForRemoveWidth, double lineToScaleWidth)
+        private static double GetCoefOfDifference(double firstLine, double secondLine)
         {
-            double difference = Math.Abs(lineForRemoveWidth - lineToScaleWidth);
+            double difference = Math.Abs(firstLine - secondLine);
 
             if (difference != 0)
             {
-                return lineForRemoveWidth > difference ? lineForRemoveWidth / difference : difference / lineForRemoveWidth;
+                return firstLine > difference ? firstLine / difference : difference / firstLine;
             }
             else
                 return 0;
-        }
-
-        private static void Animation(Border lineForRemove, Border lineToScale, Border lineResidue, double coefOfDifference)
-        {
-            if (lineToScale.Width > lineForRemove.Width)
-            {
-                while (true)
-                {
-
-
-                    Thread.Sleep(_millisecondsSleepAnimation);
-                }
-            }
-            else
-            {
-
-            }
         }
     }
 }

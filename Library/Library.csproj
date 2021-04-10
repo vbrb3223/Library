@@ -84,6 +84,7 @@
     <Compile Include="Pages\AuthPages\Sign-in.xaml.cs">
       <DependentUpon>Sign-in.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AuthPages\Sign-inFunctional\SelectUserAnimation.cs" />
     <Compile Include="Pages\AuthPages\Sign-up.xaml.cs">
       <DependentUpon>Sign-up.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Pages.AuthPages.Sign_inFunctional;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace Library.AuthPages
         public Sign_in()
         {
             InitializeComponent();
+            InitializeClasses.InitSelectUserAnimation(FirstUserLine, SecondUserLine, ThirdUserLine);
+        }
+
+        SelectUserAnimationSign_in selectUserAnimation = new SelectUserAnimationSign_in();
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            selectUserAnimation.ChangeUser(1);
         }
     }
 }

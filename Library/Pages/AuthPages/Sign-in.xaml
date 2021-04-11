@@ -58,7 +58,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Template="{DynamicResource LibrarianLabel}"/>
+                <Label Grid.Column="0" Template="{DynamicResource LibrarianLabel}" MouseDown="Label_MouseDown"/>
                 <Label Grid.Column="1" Template="{DynamicResource ReaderLabel}"/>
                 <Label Grid.Column="2" Template="{DynamicResource AdminLabel}"/>
             </Grid>
@@ -67,9 +67,9 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top"  Grid.Column="1"
                             Grid.Row="2" HorizontalAlignment="Center"
                             Width="250" Height="7">
-            <Border Width="92" Background="#C9C9C9" CornerRadius="3,0,0,3"/>
-            <Border Width="58" Background="#0096EA"/>
-            <Border Width="100" Background="#C9C9C9" CornerRadius="0,3,3,0"/>
+            <Border x:Name="FirstUserLine" Width="92" Background="#C9C9C9" CornerRadius="3,0,0,3"/>
+            <Border x:Name="SecondUserLine" Width="58" Background="#0096EA"/>
+            <Border x:Name="ThirdUserLine" Width="100" Background="#C9C9C9" CornerRadius="0,3,3,0"/>
         </StackPanel>
 
         <TextBox x:Name="TBLogin" Grid.Column="1" Grid.Row="5"

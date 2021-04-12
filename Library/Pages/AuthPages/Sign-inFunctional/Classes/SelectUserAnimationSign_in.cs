@@ -79,11 +79,15 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
         {
             if (_selectedUser == 1)
             {
-
+                double coefOfDifference = GetCoefOfDifference_AddLine(_secondUserLine.Width, _firstUserLine.Width);
+                Animation_AddLineAsync(_firstUserLine, _secondUserLine, _thirdUserLine, coefOfDifference);
+                _selectedUser = 2;
             }
             else if (_selectedUser == 3)
             {
-
+                double coefOfDifference = GetCoefOfDifference_AddLine(_secondUserLine.Width, _thirdUserLine.Width);
+                Animation_AddLineAsync(_thirdUserLine, _secondUserLine, _firstUserLine, coefOfDifference);
+                _selectedUser = 2;
             }
         }
 
@@ -101,6 +105,7 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
             }
         }
 
+        //Анимация при скрытии одной из линий
         private static double GetCoefOfDifference_RemoveLine(double lineForRemoveWidth, double lineToScaleWidth)
         {
             double difference = Math.Abs(lineForRemoveWidth - lineToScaleWidth);
@@ -123,11 +128,12 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
                 while (true)
                 {
                     await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
-                    if (lineForRemove.Width == 0)
-                        break;
-                    lineForRemove.Width -= removeLineWidth;
-                    removedWidth++;
-                    if (lineToScale.Width - scaleLineWidth > centuralWidth) //Сравнивать не с этим значением
+                    if (lineForRemove.Width != 0)
+                    {
+                        lineForRemove.Width -= removeLineWidth;
+                        removedWidth += removeLineWidth;
+                    }
+                    if (lineToScale.Width - scaleLineWidth > centuralWidth)
                     {
                         lineToScale.Width -= scaleLineWidth;
                         lineResidue.Width += removeLineWidth + scaleLineWidth;
@@ -152,10 +158,12 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
                 while (true)
                 {
                     await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
-                    if (lineForRemove.Width == 0)
-                        break;
-                    lineForRemove.Width -= removeLineWidth;
-                    removedWidth++;
+                    if (lineForRemove.Width != 0)
+                    {
+                        lineForRemove.Width -= removeLineWidth;
+                        removedWidth += removeLineWidth;
+                    }
+                        
                     if (lineToScale.Width + scaleLineWidth < centuralWidth)
                     {
                         lineToScale.Width += scaleLineWidth;
@@ -180,6 +188,82 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
                 lineToScale.CornerRadius = new CornerRadius(3, 0, 0, 3);
             else
                 lineToScale.CornerRadius = new CornerRadius(0, 3, 3, 0);
+        }
+
+
+        //Анимация при добавлении одной из линий
+        private static double GetCoefOfDifference_AddLine(double lineToScaleWidth, double startWidthLineToScale)
+        {
+            double difference = Math.Abs(startWidthLineToScale - lineToScaleWidth);
+
+            if (difference != 0)
+            {
+                return lineToScaleWidth > difference ? lineToScaleWidth / difference : difference / lineToScaleWidth;
+            }
+            else
+                return 0;
+        }
+
+        private async void Animation_AddLineAsync(Border lineForAdd, Border lineToScale, Border lineResidue, double coefOfDifference)
+        {
+            double centuralWidthToScale = _secondUserLineStartWidth;
+            lineToScale.CornerRadius = new CornerRadius(0, 0, 0, 0);
+            double scaleLineWidth = 1;
+            double addedWidth = 0;
+            double centuralWidthToAdd = lineToScale.Width;
+            if (centuralWidthToScale > centuralWidthToAdd)
+            {
+                double addLineWidth = scaleLineWidth * coefOfDifference;
+                while(true)
+                {
+                    await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
+                    if (lineToScale.Width != centuralWidthToScale)
+                    {
+                        lineToScale.Width += scaleLineWidth;
+                        addedWidth += scaleLineWidth;
+                    }
+                    
+                    
+                    if (lineForAdd.Width + addLineWidth < centuralWidthToAdd)
+                    {
+                        lineForAdd.Width += addLineWidth;
+                        lineResidue.Width -= (scaleLineWidth + addLineWidth);
+                    }
+                    else
+                    {
+                        double remainder = lineForAdd.Width - centuralWidthToAdd;
+                        lineForAdd.Width = centuralWidthToAdd;
+                        lineResidue.Width += remainder;
+                    }
+                }
+            }
+            else
+            {
+                double addLineWidth = scaleLineWidth * coefOfDifference;
+                while(true)
+                {
+                    await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
+                    if (lineToScale.Width != centuralWidthToScale)
+                    {
+                        lineToScale.Width -= scaleLineWidth;
+                        addedWidth += scaleLineWidth;
+                    }
+
+
+                    if (lineForAdd.Width + addLineWidth < centuralWidthToAdd)
+                    {
+                        lineForAdd.Width += addLineWidth;
+                        lineResidue.Width -= addLineWidth;
+                        lineResidue.Width += scaleLineWidth;
+                    }
+                    else
+                    {
+                        double remainder = lineForAdd.Width - centuralWidthToAdd;
+                        lineForAdd.Width = centuralWidthToAdd;
+                        lineResidue.Width += remainder;
+                    }
+                }
+            }
         }
     }
 }

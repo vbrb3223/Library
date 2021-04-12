@@ -38,5 +38,10 @@ namespace Library.AuthPages
         {
             selectUserAnimation.ChangeUser(3);
         }
+
+        private void Label_MouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            selectUserAnimation.ChangeUser(2);
+        }
     }
 }

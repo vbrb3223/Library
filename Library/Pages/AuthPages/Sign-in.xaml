@@ -59,7 +59,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Template="{DynamicResource LibrarianLabel}" MouseDown="Label_MouseDown"/>
-                <Label Grid.Column="1" Template="{DynamicResource ReaderLabel}"/>
+                <Label Grid.Column="1" Template="{DynamicResource ReaderLabel}" MouseDown="Label_MouseDown_2"/>
                 <Label Grid.Column="2" Template="{DynamicResource AdminLabel}" MouseDown="Label_MouseDown_1"/>
             </Grid>
         </StackPanel>

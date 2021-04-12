@@ -27,11 +27,16 @@ namespace Library.AuthPages
             InitializeClasses.InitSelectUserAnimation(FirstUserLine, SecondUserLine, ThirdUserLine);
         }
 
-        SelectUserAnimationSign_in selectUserAnimation = new SelectUserAnimationSign_in();
+        readonly SelectUserAnimationSign_in selectUserAnimation = new SelectUserAnimationSign_in();
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             selectUserAnimation.ChangeUser(1);
+        }
+
+        private void Label_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            selectUserAnimation.ChangeUser(3);
         }
     }
 }

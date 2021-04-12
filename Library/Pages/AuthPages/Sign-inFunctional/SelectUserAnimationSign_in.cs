@@ -17,7 +17,7 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
         static double _secondUserLineStartWidth;
         static double _thirdUserLineStartWidth;
 
-        static int _millisecondsSleepAnimation = 150;
+        static int _millisecondsSleepAnimation = 1;
         static int _selectedUser = 2;
 
         public static Border FirstUserLine
@@ -61,21 +61,21 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
             }
         }
 
-        private static void  SelectFirstUser()
+        private void  SelectFirstUser()
         {
             if (_selectedUser == 2)
             {
                 double coefOfDifference = GetCoefOfDifference_RemoveLine(_firstUserLine.Width, _secondUserLine.Width);
-                Animation_RemoveLineAsync(_firstUserLine, _secondUserLine, _thirdUserLine, coefOfDifference);
+                Animation_RemoveLineAsync(_firstUserLine, _secondUserLine, _thirdUserLine, coefOfDifference, _firstUserLineStartWidth, true);
                 _selectedUser = 1;
             }
             else if (_selectedUser == 3)
             {
-
+                
             }
         }
 
-        private static void SelectSecondUser()
+        private void SelectSecondUser()
         {
             if (_selectedUser == 1)
             {
@@ -87,7 +87,7 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
             }
         }
 
-        private static void SelectThirdUser()
+        private void SelectThirdUser()
         {
             if (_selectedUser == 1)
             {
@@ -95,7 +95,9 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
             }
             else if (_selectedUser == 2)
             {
-
+                double coefOfDifference = GetCoefOfDifference_RemoveLine(_thirdUserLine.Width, _secondUserLine.Width);
+                Animation_RemoveLineAsync(_thirdUserLine, _secondUserLine, _firstUserLine, coefOfDifference, _thirdUserLineStartWidth, false);
+                _selectedUser = 3;
             }
         }
 
@@ -111,49 +113,57 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
                 return 0;
         }
 
-        private static void Animation_RemoveLineAsync(Border lineForRemove, Border lineToScale, Border lineResidue, double coefOfDifference)
+        private async void Animation_RemoveLineAsync(Border lineForRemove, Border lineToScale, Border lineResidue, double coefOfDifference, double centuralWidth, bool leftCorner)
         {
             if (lineToScale.Width > lineForRemove.Width)
             {
                 double removeLineWidth = 1;
+                double removedWidth = 0;
                 double scaleLineWidth = coefOfDifference != 0 ? removeLineWidth / coefOfDifference : removeLineWidth;
                 while (true)
                 {
+                    await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
                     if (lineForRemove.Width == 0)
                         break;
                     lineForRemove.Width -= removeLineWidth;
-                    if (lineToScale.Width - scaleLineWidth > _firstUserLineStartWidth)
+                    removedWidth++;
+                    if (lineToScale.Width - scaleLineWidth > centuralWidth) //Сравнивать не с этим значением
                     {
                         lineToScale.Width -= scaleLineWidth;
                         lineResidue.Width += removeLineWidth + scaleLineWidth;
                     }
                     else
                     {
-                        double remainder = _firstUserLineStartWidth - lineToScale.Width;
+                        double remainder = centuralWidth - lineToScale.Width;
                         lineResidue.Width += removeLineWidth;
                         lineResidue.Width -= remainder;
                         lineToScale.Width += remainder;
                         break;
                     }
+                    if (removedWidth % 15 == 0)
+                        await Task.Delay(_millisecondsSleepAnimation);
                 }
             }
             else
             {
                 double removeLineWidth = 1;
+                double removedWidth = 0;
                 double scaleLineWidth = coefOfDifference != 0 ? removeLineWidth / coefOfDifference : removeLineWidth;
                 while (true)
                 {
+                    await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
                     if (lineForRemove.Width == 0)
                         break;
                     lineForRemove.Width -= removeLineWidth;
-                    if (lineToScale.Width + scaleLineWidth < _firstUserLineStartWidth)
+                    removedWidth++;
+                    if (lineToScale.Width + scaleLineWidth < centuralWidth)
                     {
                         lineToScale.Width += scaleLineWidth;
                         lineResidue.Width += removeLineWidth - scaleLineWidth;
                     }
                     else
                     {
-                        double remainder = lineToScale.Width - _firstUserLineStartWidth;
+                        double remainder = lineToScale.Width - centuralWidth;
                         lineResidue.Width += removeLineWidth;
                         lineResidue.Width += remainder;
                         lineToScale.Width -= remainder;
@@ -161,8 +171,15 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
 
                         break;
                     }
+                    if (removedWidth % 15 == 0)
+                        await Task.Delay(_millisecondsSleepAnimation);
                 }
             }
+
+            if (leftCorner)
+                lineToScale.CornerRadius = new CornerRadius(3, 0, 0, 3);
+            else
+                lineToScale.CornerRadius = new CornerRadius(0, 3, 3, 0);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -65,13 +67,13 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
         {
             if (_selectedUser == 2)
             {
+                _selectedUser = 1;
                 double coefOfDifference = GetCoefOfDifference_RemoveLine(_firstUserLine.Width, _secondUserLine.Width);
                 Animation_RemoveLineAsync(_firstUserLine, _secondUserLine, _thirdUserLine, coefOfDifference, _firstUserLineStartWidth, true);
-                _selectedUser = 1;
             }
             else if (_selectedUser == 3)
             {
-                
+                _selectedUser = 1;
             }
         }
 
@@ -79,15 +81,15 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
         {
             if (_selectedUser == 1)
             {
-                double coefOfDifference = GetCoefOfDifference_AddLine(_secondUserLine.Width, _firstUserLine.Width);
-                Animation_AddLineAsync(_firstUserLine, _secondUserLine, _thirdUserLine, coefOfDifference);
                 _selectedUser = 2;
+                double coefOfDifference = GetCoefOfDifference_AddLine(_secondUserLine.Width, _secondUserLineStartWidth, _firstUserLineStartWidth);
+                Animation_AddLineAsync(_firstUserLine, _secondUserLine, _thirdUserLine, coefOfDifference, true);
             }
             else if (_selectedUser == 3)
             {
-                double coefOfDifference = GetCoefOfDifference_AddLine(_secondUserLine.Width, _thirdUserLine.Width);
-                Animation_AddLineAsync(_thirdUserLine, _secondUserLine, _firstUserLine, coefOfDifference);
                 _selectedUser = 2;
+                double coefOfDifference = GetCoefOfDifference_AddLine(_secondUserLine.Width, _secondUserLineStartWidth, _thirdUserLineStartWidth);
+                Animation_AddLineAsync(_thirdUserLine, _secondUserLine, _firstUserLine, coefOfDifference, false);
             }
         }
 
@@ -95,13 +97,13 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
         {
             if (_selectedUser == 1)
             {
-
+                _selectedUser = 3;
             }
             else if (_selectedUser == 2)
             {
+                _selectedUser = 3;
                 double coefOfDifference = GetCoefOfDifference_RemoveLine(_thirdUserLine.Width, _secondUserLine.Width);
                 Animation_RemoveLineAsync(_thirdUserLine, _secondUserLine, _firstUserLine, coefOfDifference, _thirdUserLineStartWidth, false);
-                _selectedUser = 3;
             }
         }
 
@@ -184,6 +186,10 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
                 }
             }
 
+            lineForRemove.Width = 0;
+            lineToScale.Width = centuralWidth;
+            lineResidue.Width = (_firstUserLineStartWidth + _secondUserLineStartWidth + _thirdUserLineStartWidth) - centuralWidth;
+
             if (leftCorner)
                 lineToScale.CornerRadius = new CornerRadius(3, 0, 0, 3);
             else
@@ -192,28 +198,29 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
 
 
         //Анимация при добавлении одной из линий
-        private static double GetCoefOfDifference_AddLine(double lineToScaleWidth, double startWidthLineToScale)
+        private static double GetCoefOfDifference_AddLine(double lineToScaleWidth, double startWidthLineToScale, double startWidthLineToAdd)
         {
             double difference = Math.Abs(startWidthLineToScale - lineToScaleWidth);
-
             if (difference != 0)
             {
-                return lineToScaleWidth > difference ? lineToScaleWidth / difference : difference / lineToScaleWidth;
+                return startWidthLineToAdd > difference ? startWidthLineToAdd / difference : difference / startWidthLineToAdd;
             }
             else
                 return 0;
         }
 
-        private async void Animation_AddLineAsync(Border lineForAdd, Border lineToScale, Border lineResidue, double coefOfDifference)
+        private async void Animation_AddLineAsync(Border lineForAdd, Border lineToScale, Border lineResidue, double coefOfDifference, bool leftCorner)
         {
             double centuralWidthToScale = _secondUserLineStartWidth;
             lineToScale.CornerRadius = new CornerRadius(0, 0, 0, 0);
+            lineForAdd.CornerRadius = leftCorner ? new CornerRadius(3, 0, 0, 3) : new CornerRadius(0, 3, 3, 0);
             double scaleLineWidth = 1;
             double addedWidth = 0;
             double centuralWidthToAdd = lineToScale.Width;
+
             if (centuralWidthToScale > centuralWidthToAdd)
             {
-                double addLineWidth = scaleLineWidth * coefOfDifference;
+                double addLineWidth = scaleLineWidth / coefOfDifference;
                 while(true)
                 {
                     await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
@@ -227,20 +234,23 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
                     if (lineForAdd.Width + addLineWidth < centuralWidthToAdd)
                     {
                         lineForAdd.Width += addLineWidth;
-                        lineResidue.Width -= (scaleLineWidth + addLineWidth);
+                        lineResidue.Width -= scaleLineWidth;
+                        lineResidue.Width -= addLineWidth;
                     }
                     else
                     {
                         double remainder = lineForAdd.Width - centuralWidthToAdd;
                         lineForAdd.Width = centuralWidthToAdd;
                         lineResidue.Width += remainder;
+                        break;
                     }
                 }
             }
             else
             {
                 double addLineWidth = scaleLineWidth * coefOfDifference;
-                while(true)
+
+                while (true)
                 {
                     await Task.Run(() => Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => { })));
                     if (lineToScale.Width != centuralWidthToScale)
@@ -258,12 +268,18 @@ namespace Library.Pages.AuthPages.Sign_inFunctional
                     }
                     else
                     {
-                        double remainder = lineForAdd.Width - centuralWidthToAdd;
+                        double remainder = Math.Abs(lineForAdd.Width - centuralWidthToAdd);
                         lineForAdd.Width = centuralWidthToAdd;
                         lineResidue.Width += remainder;
+                        break;
                     }
+                    if (addedWidth % 15 == 0)
+                        await Task.Delay(_millisecondsSleepAnimation);
                 }
             }
+            lineForAdd.Width = centuralWidthToAdd;
+            lineToScale.Width = centuralWidthToScale;
+            lineResidue.Width = (_firstUserLineStartWidth + _secondUserLineStartWidth + _thirdUserLineStartWidth) - centuralWidthToAdd - centuralWidthToScale;
         }
     }
 }

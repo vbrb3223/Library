@@ -67,7 +67,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top"  Grid.Column="1"
                             Grid.Row="2" HorizontalAlignment="Center"
                             Width="250" Height="7">
-            <Border x:Name="FirstUserLine" Width="92" Background="#C9C9C9" CornerRadius="3,0,0,3"/>
+            <Border x:Name="FirstUserLine" Width="92" Background="Black" CornerRadius="3,0,0,3"/>
             <Border x:Name="SecondUserLine" Width="58" Background="#0096EA"/>
             <Border x:Name="ThirdUserLine" Width="100" Background="#C9C9C9" CornerRadius="0,3,3,0"/>
         </StackPanel>
